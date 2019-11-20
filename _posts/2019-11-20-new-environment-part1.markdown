@@ -22,7 +22,7 @@ Over time the whole thing became more and more confusing for the users:
 
 In the following blog posts I want to give you an insight into how I tried to create my own homebrew environment and fix these existing problems. 
 
-This first post will be about given a brief overview of the Wii U.
+This first post will be about giving a brief overview of the Wii U.
 
 # The Wii U
 
