@@ -185,7 +185,7 @@ stages. This is possible on some consoles like the [*Nintendo Wii*](https://wiib
 the [*Nintendo Switch*](https://switchbrew.org/wiki/Switch_System_Flaws#Hardware). On the *Wii
 U*, at bootime this was only possible with a ["glitching"-setup](http://wiiubrew.org/wiki/Wii_U_System_Flaws#boot0).
 In fact, there is also an exploit that
-allows [code execution in the boot1 stage](http://hexkyz.blogspot.com/2018/01/anatomy-of-wii-u-end.html},), but the console must have been
+allows [code execution in the boot1 stage](http://hexkyz.blogspot.com/2018/01/anatomy-of-wii-u-end.html), but the console must have been
 completely started and taken over. When the console is started, the
 *boot0* level stores a data structure in the main memory. If a restart
 is initiated while the console is running, the boot process starts at
