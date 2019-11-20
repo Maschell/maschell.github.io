@@ -6,9 +6,10 @@ categories: bugs
 ---
 
 Some time ago, I went on a journey to create a new homebrew environment for the Wii U. 
-An environment where homebrew applications can be run easily and on Wii u.
-It's been possible to run your own software on Wii U since 2015, but I'm not satisfied with the existing solutions. 
-Some solutions, such as the Homebrew Launcher, date back to a time when no public IOSU exploit was known. In order to run Homebrew, some compromises had to be made. 
+An environment where homebrew applications can be run easily and on Wii U.
+It's been possible to run your own software on Wii U since 2015, but I wasn't satisfied with the existing solutions. 
+Some solutions, such as the Homebrew Launcher, date back to a time when no public IOSU exploit was known. 
+In order to run Homebrew, some compromises had to be made. 
 
 Over time the whole thing became more and more confusing for the users:
 
