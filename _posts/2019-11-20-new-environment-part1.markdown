@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Creating a homebrew envrionment on the Wii U - Part 1"
+title:  "Creating a homebrew environment on the Wii U - Part 1"
 date:   2019-11-20 18:05:00 +0100
 categories: bugs
 ---
