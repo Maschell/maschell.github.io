@@ -29,6 +29,9 @@ plugins:
   - jekyll-feed
   - jekyll-redirect-from
   
+gems:
+  - jekyll-redirect-from
+  
 whitelist:
   - jekyll-redirect-from
 
