@@ -4,8 +4,8 @@ title:  "Creating a homebrew environment on the Wii U - Part 2"
 date:   2019-11-27 19:33:00 +0100
 categories: homebrew
 ---
-[The last blog]({{ site.baseurl }}{% link _posts/2019-11-20-new-environment-part1.markdown %})
- entry brought an overview of the internal structure of the Wii U. 
+The [last blog entry]({{ site.baseurl }}{% link _posts/2019-11-20-new-environment-part1.markdown %})
+  brought an overview of the internal structure of the Wii U. 
 So that a homebrew environment can be designed, some requirements will be specified in this entry.
 Afterwards the existing solutions will be considered and compared with these requirements.
 
