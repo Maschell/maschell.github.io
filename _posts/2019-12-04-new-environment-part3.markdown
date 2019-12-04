@@ -21,16 +21,12 @@ These have already been explained in the [last blog entry]({{ site.baseurl }}{% 
 The following goals can be derived for the conception:
 
 -   It should be possible to execute homebrew applications.
-
 -   At the same time it should be possible to use plugins that can
     modify the Cafe OS and execute code in the background.
-
 -   IOSU modifications should be available in the homebrew environment
     so that they can be expected from applications.
-
 -   Maintainability and easy updating should be possible (requirement
     8), with as little effort as possible for the end user.
-
 -   The requirements already fully met by the existing solutions should
     continue to be met.
 
