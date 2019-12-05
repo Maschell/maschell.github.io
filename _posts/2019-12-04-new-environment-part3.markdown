@@ -184,7 +184,7 @@ In general, it makes sense that future homebrew applications should only
 use the ".rpx" file format. This is the native file format for
 executable files on the console and offers the possibility to use the
 system libraries directly. All homebrew applications that require a
-deeper manipulation of the system (such a replacing system functions) can be implemented as plugins for the
+deeper manipulation of the system (such as replacing system functions) can be implemented as plugins for the
 Wii U Plugin System.
 
 In the existing solutions, the ".rpx" files were executed by
