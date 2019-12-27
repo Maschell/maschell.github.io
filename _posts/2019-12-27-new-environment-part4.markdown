@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Creating a homebrew environment on the Wii U - Part 4"
-date:   2019-12-27 14300:00 +0100
+date:   2019-12-27 14:30:00 +0100
 categories: homebrew
 ---
 
