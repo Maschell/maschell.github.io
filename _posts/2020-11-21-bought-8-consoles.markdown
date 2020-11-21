@@ -27,7 +27,7 @@ Since then I also tend to specially search for console related items which have 
  broken for "normal" people, but still be useful for me.
 
 ## Buying 8 Wii Us...
-A few ago I finally found a really interesting listing on ebay. A total of 8 "broken"
+A few days ago I finally found a really interesting listing on ebay. A total of 8 "broken"
  Wii U consoles (no cables, no gamepad, but all are the 32GB version) for 119€. Normally
  you spent easily 50€ for a (working) replacement console in a reasonable condition.
  The listing even had some information about the condition of the consoles: (freely translated)
@@ -39,14 +39,14 @@ A few ago I finally found a really interesting listing on ebay. A total of 8 "br
 1x Defect
 ```
 All of them except the last one sounded like something that *could* be possible to fix
- or use. Like I said earlier, as long I as can somehow connect a gamepad, I don't if
+ or use. Like I said earlier, as long I as can somehow connect a gamepad, I don't care if
  the video output is broken. The "locked" consoles sounded like some parental controls
  are applied, but there is an [online tool](https://mkey.salthax.org/) to reset the
  parental controls, so they also shouldn't be an issue.
 
 In theory only 3 of the 8 console would need to be usable for me until I wouldn't 
 consider it a waste of money. Without spending too much time on thinking what I even
- want to with 8 consoles, I pressed the "Buy it now" button.
+ want to do with 8 consoles, I pressed the "Buy it now" button.
 
 ## 36 hours later
 
