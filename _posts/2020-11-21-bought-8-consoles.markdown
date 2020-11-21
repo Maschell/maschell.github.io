@@ -92,7 +92,7 @@ moved on to the other consoles. When I came back later, I systematically tried o
 birthdates (this reduced the number of possible PINs down to 366!) and after ~30 minutes 
 and ~250 tries I was in. Apperantly the birthdate of the previous owner is November 26th :) 
 
-Knowing the code I was able to create a new account code and remove the parental controls. 
+Knowing the PIN I was able to create a new account and remove the parental controls. 
 Everything else seemed to work fine. Another saved console!
 
 #### Console 3
@@ -104,7 +104,7 @@ the emmc has died. RIP console 3 =(
 
 #### Console 4
 
-The next console didn't output any image via HDMI, but when I tried a composite cable it 
+The next console didn't output anything via HDMI, but when I tried a composite cable it 
 worked! I was able to pair the gamepad and change the output back to HDMI. This console 
 also seemed to work without any issues. So we far we have 3 working consoles out of 4! I 
 have reached my target of three saved consoles :)
@@ -137,16 +137,16 @@ In order to emulate a gamepad, you need to go through the same connecting proces
 the PIN. I thought I may can automate the bruteforcing, but in the end I spent like 5 hours 
 fighting with serveral ubuntu vms, without any success. I went back to manual bruteforcing.
 
-After testing like 30 PINs, I remembered some console have a button combinations to reset 
+After testing ~30 PINs, I remembered some console have a button combinations to reset 
 the video mode. Unfortunately the Wii U doesn't seem to have such feature, but I came 
-across and random Youtube video that showed how to fix a "no image on TV"-issue. Because 
+across a random Youtube video that showed how to fix a "no image on TV"-issue. Because 
 they already had a gamepad synced, they proposed to try different video output modes until 
 it works. 
 
 This was the moment where I realized, that the Wii U has more possible outputs than HDMI 
 and composite. There is also component output. There is one problem: I don't have a component 
 cable to test this. But what I have is a "AV Multi Out" to HDMI adapter for my Wii and I 
-gave it a shot. On my first display I was shown a "invalid hdmi signal" error, but on my 
+gave it a shot. On the first display I tried it showed a "invalid hdmi signal" error, but on my 
 slighty more expensive one I finally saw the Wii U menu! I checked the settings and apparently 
 the console was set to non-hdmi and 576i. After setting it to HDMI and 1080p the console 
 worked perfectly! 6 out of 7!
@@ -156,7 +156,6 @@ worked perfectly! 6 out of 7!
 The last console had exactly the same issue as console 7. After connecting it using the 
 "AV Multi Out" to HDMI adapter I was able to change the video output to HDMI. Everything 
 seemed to work fine. 7 out of 8 consoles working!
-
 
 # Conclusion
 
