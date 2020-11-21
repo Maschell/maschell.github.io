@@ -50,8 +50,8 @@ consider it a waste of money. Without spending too much time on thinking what I 
 
 ## 36 hours later
 
-Just 36 hours a big box with 8 Wii U consoles arrived. They all seem to be in a pretty
- good condition (~~much better than my main two consoles~~). I piled them up on a big
+Just 36 hours later a big box with 8 Wii U consoles arrived. They all seemed to be in a pretty
+ good condition (~~much better than my two main consoles~~). I piled them up on a big
  "Wii U tower" and took the picture before testing them one by one.
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">I have no idea what I am doing
@@ -60,7 +60,7 @@ Just 36 hours a big box with 8 Wii U consoles arrived. They all seem to be in a 
  November 20, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 
 #### Console 1
-At first I was interested in the "non-European sales version". Fairly quick I identified
+At first I was interested in the "non-European sales version". Fairly quickly I identified
  the console and gave it a shot. Turns out it was a US console, so I paired my EU gamepad.
  I always thought the gamepads are region locked but to my surprise I was able to go 
  through the whole console setup process. After that the console restarted and tried 
@@ -75,7 +75,7 @@ At first I was interested in the "non-European sales version". Fairly quick I id
 #### Console 2
 After that I picked up the next console. This one seemed to be one of the "locked" consoles. 
 When I started the console it presented me the login screen with one password protected 
-account. There is possibility to create a new account, but I locked via the parent controls. 
+account. There is possibility to create a new account, but it's locked via the parent controls. 
 Even if I would've known the password for the account (NNID), I wouldn't be able to login 
 because the console was offline. For setting up the internet connection I also needed the 
 PIN to bypass the parental controls. 
@@ -87,10 +87,10 @@ So my only option to get into the Wii U menu was guessing the parental control P
 create a new account.
 
 Luckily the PIN is only 4 digits long, in worst case I have to test 9999 combinations. 
-Annoying, but with enough time this one is also solveable. I gave it a few tried but 
+Annoying, but with enough time this one is also solveable. I gave it a few tries but 
 moved on to the other consoles. When I came back later, I systematically tried out all 
 birthdates (this reduced the number of possible PINs down to 366!) and after ~30 minutes 
-and ~250 tries I was in. Apperantly the birthdate of the previous owner was November 26th :) 
+and ~250 tries I was in. Apperantly the birthdate of the previous owner is November 26th :) 
 
 Knowing the code I was able to create a new account code and remove the parental controls. 
 Everything else seemed to work fine. Another saved console!
