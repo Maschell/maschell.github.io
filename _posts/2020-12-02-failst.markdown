@@ -1,0 +1,77 @@
+---
+layout: post
+title:  "FailST aka contenthax 2.0"
+date:   2020-12-02 19:00:00 +0100
+categories: homebrew
+---
+
+In this blog post I want to tell the story about how I found *FailST*, a way to bypass runtime signature checks for certain titles on the Wii U.
+
+Back in April I started to rewrite some parts of [JNUSLib](https://github.com/Maschell/JNUSLib) and noticed that some flags in the [Filesystem Table](https://wiiubrew.org/wiki/FST) were still undocumented. At this point in time I wouldn't have thought digging into this would lead into a new exploit for the Wii U.
+
+Since the conception of this vulnerability I have shared this with other developers, including Rambo6Glaz/NexoCube, who leaked it. I didn't intend this to be public until the tools and guides are ready, polished and well tested. It was meant to be released with my new [upcoming homebrew environment](https://maschell.github.io/homebrew/2019/11/20/new-environment-part1.html) (including full coldboot features). I will see to that this environment is finished, but for now, here are the details of how the vulnerability works.
+
+# The Wii U **F**ile**S**ystem**T**able (FST)
+
+As the name may suggest, the exploit using a vulnerability in the handling of the FST. First, I want to give you an overview about how the FST works.
+
+A Wii U game disc is divided into multiple partitions. At the bare minimum, they have one `SI` (SecurityInformation?) and one `GM` (Game?) partition. The `SI` partition holds the TitleMetaData (TMD) and Ticket for each of the `GM` partition(s). Some games have some additional partitions which contain, for example, updates or DLC.
+
+In all discs I have seen so far, each `GM` partition conists of exactly one `volume`, which starts with a `VolumeHeader`. This header holds information like the address of the FST, a list of `h3-hashes` or the sector size. 
+
+Each volume is divided into multiple sections, the first of which is always the FST. The FST holds information about the actual game files like names, sizes and where to find them on the disc. For each section the FST includes a small entry to describe the section. Beside the offset, size, owner ID and group ID it also holds one previously unknown field which turns out to be the hash mode. Sections can have two possible hash modes. 
+
+Mode 1 hashes the whole section, and saves the hash to the [TMD](https://wiiubrew.org/wiki/Title_metadata). Each section with hash mode 1 only holds one file, typically all files from the `/code` folder, including the binary. The whole file/sections needs to be decrypted/hashed in order to verify it.
+
+Mode 2 splits up the section into chunks of 0x10000 bytes each. Each chunk starts with 0x400 bytes of hashes and 0xFC00 bytes of actual data. A hash tree is built up and the final hash-layer (h3) of each section is saved in the volume header. The hash of each of the h3-hashes is stored in the TMD. This way it's possible to access and verfiy the section in chunks of 0xFC00 bytes, so random access is possible without decrypting and hashing the whole section. Sections with hash mode 2 often hold multiple files and can get up to 4GiB in size.
+
+After the section entries, the actual file/directory entries follow. A directory entry stores its parent entry and its children. A file entry stores its size and relative offset inside the section, together with a reference to a section entry. 
+
+If a game requests a file and is running from a disc, the WiiU looks through the FST for the corresponding file entry and gets the offset/size and section information. The integrity of the file is checked based on the hash mode of the section.
+
+# What happens when you install a game from the eShop
+Games downloaded from the eShop are in a slightly different format, but contain exactly the same data. It's possible to restore this `installable` format from an actual disc. Instead of having multiple partitions, the files from the SI partition are shared directly (`title.tmd` and `title.tik`),  while the GM partition is shared by saving each section as a `.app` file. Depending on the hash mode of the section, additonal `.h3` files are distributed for sections with hash mode 2. While installing these files, all game files can be verified exactly the same as a disc. After the installation it's a bit different though.
+
+The Wii U does **not** store the `.h3` files (nor the h0-h2 hashes), which makes verifying the integrity of files from section with hash mode 2 impossible. This is commonly known has `contenthax`. Effectively, all files from a section with hash mode 2 can be modified **after** installing. `haxchi` is exploiting this by using a malformed Nintendo DS rom to exploit the emulator that ships with virtual console games.
+
+Modifying files from sections with hash mode 1 is not possible. Their hash is still saved inside the TMD, which is installed together with the actual game files and the FST. At runtime these hashes may be checked.
+
+# Search for interesting titles
+In theory `contenthax` is not limited to the `/content` or `/meta` folder but can be used for all files that are in a section with hash mode 2. I quickly fired up JNUSLib and searched for titles that may accidentally have hash mode 2 for files from the `/code` folder. I stumbled across some titles where the `app.xml` and `cos.xml` were in a hash mode 2 section. This is quite a big deal because the `cos.xml` defines the filename of the `.rpx` and the permissions of the titles. 
+Beside giving us full permissions to the SD card and the codegen area, I tried to launch a different `.rpx`, one that is not verified during boot. This idea didn't work, because the new `.rpx` is not part of the FST. We also can't add it, because the FST is signed and checked at runtime...
+
+# FailST
+To recap, when installing a game, the FST is copied as `title.fst` into the `/code` folder. A hash of that file is inside the TMD, so it can be checked when the game is starting up. At least, I always *thought* that the FST is checked during runtime. I didn't even try to modify the `title.fst` because I was 99.999% sure that this would cause the game not to boot due to the FST hash not matching with the hash in the TMD.
+
+One night though, [rw-r-r-0644](https://github.com/rw-r-r-0644) asked me what exactly is checking the FST, so I decided to test it by modifying it and seeing if the game still booted.
+
+<center><img src="/res/failst_chat.png" width="400"></center>
+
+And it did.
+
+So for installed titles we can now modify the `title.fst`. What happens if we modify each file entry inside the FST to point to a section with hash mode 2? 
+In theory then it should be possible to modify **all** files, including the binaries. 
+
+I tried to replace the binary with homebrew and it worked again :)
+
+sha256("FailFST aka contenthax 2.0") = [c5dad5d79a554bc2759ca01b279d05ce1bb5e7eeaf800e01c6e56091cefdca72](https://twitter.com/MaschellDev/status/1252746213524492288)
+
+# FAQ
+
+### What will this allow us to do?
+Bypass the runtime checks of files for all titles that have at least one section in the FST with hash mode 2. This includes replacing the binary of a title and modifying the cos.xml (which allows us to give it more permissions).
+
+### What will this not allows us?
+This **won't** allow us to modify "code-only" titles like OSv10 or cafe2wii (`fw.img` and `kernel.img` are still signed separately anyway).
+
+### Can this be patched?
+Yes, very easily.
+
+### Why does this work?
+It's explained above. 
+TL;DR: the FST is used to determine if a file should be hash checked at launch but is not checked at runtime itself.
+
+# What's next?
+Like I mentioned earlier this wasn't meant to be released just yet. Without a proper installer and something actually using it, there is no real gain for the end user. 
+
+The plan is to release a safe installer as soon as possible which will turn the `Health and Safety` app into a generic `payload.elf`-loader. This way the people will have a free haxchi-alternative. Stay tuned for more information. Until then please don't play around with this unless you know what you're doing. 
