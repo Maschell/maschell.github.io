@@ -1,0 +1,64 @@
+---
+layout: post
+title:  "Tiramisu"
+date:   2021-12-31 14:00:00 +0100
+categories: homebrew
+---
+
+Tiramisu is **not** Aroma. Aroma will still take some time.
+
+TL;DR: [GaryOderNichts](https://github.com/GaryOderNichts) and I worked over the past few days on [Tiramisu](https://github.com/wiiu-env/Tiramisu), a homebrew environment to mimic a free haxchi/cbhc with some extra features.
+
+## Background
+
+In my [last blogpost]({{ site.baseurl }}{% link _posts/2020-12-02-failst.markdown %}) I talked about FailST, an exploit to bypass runtime signature checks for a title on the Wii U. My initial plan was to release it together with my upcoming homebrew environment, because without a payload it wouldn't be really useful. Unfortunately FailST got leaked before Aroma (name for the upcoming homebrew environment) actually was finished. Since then FailST was floating around without anyone actually using it, giving Nintendo plenty of time to patch it, which is... really stupid.
+
+However: At the end of this blogpost I promised to release a user-friendly installer "as soon as possible" to be a free haxchi alternative. Now, over a year later, it's finally time to release it with some extra bits. 🎉
+
+## Why did the release take over a year?
+Like I've already mentioned before, FailST is only useful with a payload that's taking advantage of it. Back in early 2019 I introduced the concept of abstracting payloads into a separate file (`payload.elf`) which every exploit could load in a standardized way to allow a constant experience between all entrypoints. This also allow's easy updating, because all you need to do, is replace a file on the sd card. So it only makes sense to use FailST to turn an application into a generic `payload.elf` loader too.
+
+The "problem" with this is that you still need a `payload.elf` that does any of the cool things for you. Until today there were only a handful of `payload.elf`-implementations, for example the [homebrew launcher installer](https://github.com/wiiu-env/homebrew_launcher_installer) everyone is using for the browser exploit. But this is really only injecting the Homebrew Launcher into the Mii Maker, not doing anything else.
+
+I decided to focus on finishing Aroma (didn't turn out well 🙈) instead of creating a `payload.elf` that will actually match the feature set of hachxi/cbhc. At the time I didn't think Aroma would actually take so much longer and I wanted to avoid releasing something that will be obsolete 2 weeks later because of an actual Aroma release.
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I didn&#39;t work on Aroma for over 2 1/2 months now and at the moment don&#39;t have any motivation to continue in the near future. Therefore I decided to at least make some aroma-unspecific repositorys public.</p>&mdash; MaschellDev (@MaschellDev) <a href="https://twitter.com/MaschellDev/status/1410955174324080641?ref_src=twsrc%5Etfw">July 2, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+But in early july I realized that Aroma won't happen anytime soon, so figured it might be useful to make some repositories related to `payload.elf`-loading public. This included [PayloadFromRPX](https://github.com/wiiu-env/PayloadFromRPX), a custom .rpx that could chainload a `payload.rpx` which makes it perfect to inject into a title via FailST.
+
+With this "only" a user-friendly (and safe) installer was missing and the public would have a free and generic entrypoint with built-in (and well tested) coldboot capabilities.
+
+## Environments?!?!
+
+Together with Tiramisu an [EnvironmentLoader](https://github.com/wiiu-env/EnvironmentLoader) will be released, which is a payload that allows you to load into different environments. An environment is a collection of one-time executables (setup modules) that'll run in a specific order.
+
+Because an environment is just a collection of files , it's really easy to customize and extend it. All you need to do is add/remove files on your sd card.
+
+## Tiramisu Environment
+[Tiramisu](https://github.com/wiiu-env/Tiramisu) is an environment for the [EnvironmentLoader](https://github.com/wiiu-env/EnvironmentLoader) which has the following (base) features:
+- CFW based on mocha with slighty more features
+- Homebrew launcher injected into Mii Maker
+- Autoboot Menu based on CBHC
+- Full quick boot menu support of the Gamepad
+
+It's possible to extend this features set by adding new setup modules. For example [Bloopair](https://github.com/GaryOderNichts/Bloopair) has been ported to be a setup module, which allows coldbooting into Bloopair 🚀!
+
+## PayloadLoader Installer Environment
+The other environment that will be released together with Tiramisu is an environemnt to launch the PayloadLoader Installer. 
+
+The PayloadLoader Installer is a user-friendly and safe installer that injects [PayloadFromRPX](https://github.com/wiiu-env/PayloadFromRPX) into the Health and Safety Application. It also has an option to activate coldbooting into it. 
+
+This allows us to coldboot into the [EnvironmentLoader](https://github.com/wiiu-env/EnvironmentLoader) and thus into Tiramisu (or any other environment)
+
+## The future of Aroma
+I'll continue to work on Aroma and have already ported it to be compatible with the [EnvironmentLoader](EnvironmentLoader). This means migrating from Tiramisu to Aroma will be done by putting new files on the sd card and and change the default environment on the EnvironmentLoader. 
+
+I really hope to get Aroma done quickly because it has some really cool features that are not possible with legacy homebrew. I'll keep you updated!
+
+
+## Links
+
+- [Wii U Hacking Guide](https://wiiu.hacks.guide/#/)
+- [EnvironmentLoader](https://github.com/wiiu-env/EnvironmentLoader)
+- [Tiramisu Environment](https://github.com/wiiu-env/Tiramisu)
+- [PayloadLoader Installer Environment](https://github.com/wiiu-env/PayloadLoaderInstallerEnvironment)
