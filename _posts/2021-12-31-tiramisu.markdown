@@ -11,7 +11,7 @@ TL;DR: [GaryOderNichts](https://github.com/GaryOderNichts) and I worked over the
 
 ## Background
 
-In my [last blogpost]({{ site.baseurl }}{% link _posts/2020-12-02-failst.markdown %}) I talked about FailST, an exploit to bypass runtime signature checks for a title on the Wii U. My initial plan was to release it together with my upcoming homebrew environment, because without a payload it wouldn't be really useful. Unfortunately FailST got leaked before Aroma (name for the upcoming homebrew environment) actually was finished. Since then FailST was floating around without anyone actually using it, giving Nintendo plenty of time to patch it, which is... really stupid.
+In my [last blogpost]({{ site.baseurl }}{% link _posts/2020-12-02-failst.markdown %}) I talked about FailST, an exploit to bypass runtime signature checks for a title on the Wii U. My initial plan was to release it together with my upcoming homebrew environment, because without a payload it wouldn't be really useful. Unfortunately FailST got leaked before Aroma (name for the upcoming homebrew environment) actually was finished. Since then FailST was floating around without anyone actually using it, giving Nintendo plenty of time to patch it, which is... really stupid. Luckily they didn't fix it (yet).
 
 However: At the end of this blogpost I promised to release a user-friendly installer "as soon as possible" to be a free haxchi alternative. Now, over a year later, it's finally time to release it with some extra bits. 🎉
 
