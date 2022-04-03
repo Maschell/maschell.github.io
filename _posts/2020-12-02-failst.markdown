@@ -13,7 +13,7 @@ Since the conception of this vulnerability I have shared this with other develop
 
 # The Wii U **F**ile**S**ystem**T**able (FST)
 
-As the name may suggest, the exploit using a vulnerability in the handling of the FST. First, I want to give you an overview about how the FST works.
+As the name may suggest, the exploit uses a vulnerability in the handling of the FST. First, I want to give you an overview about how the FST works.
 
 A Wii U game disc is divided into multiple partitions. At the bare minimum, they have one `SI` (SecurityInformation?) and one `GM` (Game?) partition. The `SI` partition holds the TitleMetaData (TMD) and Ticket for each of the `GM` partition(s). Some games have some additional partitions which contain, for example, updates or DLC.
 
@@ -21,18 +21,18 @@ In all discs I have seen so far, each `GM` partition conists of exactly one `vol
 
 Each volume is divided into multiple sections, the first of which is always the FST. The FST holds information about the actual game files like names, sizes and where to find them on the disc. For each section the FST includes a small entry to describe the section. Beside the offset, size, owner ID and group ID it also holds one previously unknown field which turns out to be the hash mode. Sections can have two possible hash modes. 
 
-Mode 1 hashes the whole section, and saves the hash to the [TMD](https://wiiubrew.org/wiki/Title_metadata). Each section with hash mode 1 only holds one file, typically all files from the `/code` folder, including the binary. The whole file/sections needs to be decrypted/hashed in order to verify it.
+Mode 1 hashes the whole section, and saves the hash to the [TMD](https://wiiubrew.org/wiki/Title_metadata). Each section with hash mode 1 only holds one file, typically all files from the `/code` folder, including the binary. The whole file/section needs to be decrypted/hashed in order to verify it.
 
 Mode 2 splits up the section into chunks of 0x10000 bytes each. Each chunk starts with 0x400 bytes of hashes and 0xFC00 bytes of actual data. A hash tree is built up and the final hash-layer (h3) of each section is saved in the volume header. The hash of each of the h3-hashes is stored in the TMD. This way it's possible to access and verfiy the section in chunks of 0xFC00 bytes, so random access is possible without decrypting and hashing the whole section. Sections with hash mode 2 often hold multiple files and can get up to 4GiB in size.
 
 After the section entries, the actual file/directory entries follow. A directory entry stores its parent entry and its children. A file entry stores its size and relative offset inside the section, together with a reference to a section entry. 
 
-If a game requests a file and is running from a disc, the WiiU looks through the FST for the corresponding file entry and gets the offset/size and section information. The integrity of the file is checked based on the hash mode of the section.
+If a game requests a file and is running from a disc, the Wii U looks through the FST for the corresponding file entry and gets the offset/size and section information. The integrity of the file is checked based on the hash mode of the section.
 
 # What happens when you install a game from the eShop
 Games downloaded from the eShop are in a slightly different format, but contain exactly the same data. It's possible to restore this `installable` format from an actual disc. Instead of having multiple partitions, the files from the SI partition are shared directly (`title.tmd` and `title.tik`),  while the GM partition is shared by saving each section as a `.app` file. Depending on the hash mode of the section, additonal `.h3` files are distributed for sections with hash mode 2. While installing these files, all game files can be verified exactly the same as a disc. After the installation it's a bit different though.
 
-The Wii U does **not** store the `.h3` files (nor the h0-h2 hashes), which makes verifying the integrity of files from section with hash mode 2 impossible. This is commonly known has `contenthax`. Effectively, all files from a section with hash mode 2 can be modified **after** installing. `haxchi` is exploiting this by using a malformed Nintendo DS rom to exploit the emulator that ships with virtual console games.
+The Wii U does **not** store the `.h3` files (nor the h0-h2 hashes), which makes verifying the integrity of files from section with hash mode 2 impossible. This is commonly known as `contenthax`. Effectively, all files from a section with hash mode 2 can be modified **after** installing. `haxchi` is exploiting this by using a malformed Nintendo DS rom to exploit the emulator that ships with virtual console games.
 
 Modifying files from sections with hash mode 1 is not possible. Their hash is still saved inside the TMD, which is installed together with the actual game files and the FST. At runtime these hashes may be checked.
 

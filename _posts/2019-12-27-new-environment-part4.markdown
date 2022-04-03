@@ -20,8 +20,8 @@ However, the implementation of the necessary browser exploit does not
 have to take place from scratch. The existing browser exploit with the
 name [JSTypeHax](https://github.com/WiiUTest/JsTypeHax), which exploits the [CVE-2013-2857](https://nvd.nist.gov/vuln/detail/CVE-2013-2857)
 vulnerability, can be used as the basis. 
-It is exploiting heap-use-after-free
-bug, that can be exploited via JavaScript code. It is taken advantage
+It is exploiting a heap-use-after-free
+bug, that can be exploited via JavaScript code. It takes advantage
 of the fact that the browser still uses a **reference A** to **object A** after
 freeing it. If an **object B** is allocated directly afterwards, the data is
 located at the point in the memory where **object A** previously was. A
@@ -32,7 +32,7 @@ different data structure. This makes it possible to effectively
 manipulate parts of **object A** to which no access is given via **reference A**.
 The data structure of **object B** can be chosen freely by using a different data
 structure. The use of **reference A** may cause unexpected values to be
-used. By a careful choosing these values, a manipulation of the stack,
+used. By carefully choosing these values, a manipulation of the stack,
 and thus a ROP chain execution, is possible. Subsequently, a payload is
 written to the JIT area via the ROP chain and executed.
 
@@ -132,7 +132,7 @@ Detailed technical notes and annotated code of this implementation can be found 
 The previous implementation currently has two critical points at which
 predictions must be made. If one of the predictions is not precise
 enough, the execution of the exploit fails and the console crashes. 
-The new position of the stack (containing the ROP-Chain) and the position payload copied to the JIT-areas have to be preditcted.
+The new position of the stack (containing the ROP-Chain) and the position payload copied to the JIT-areas have to be predicted.
 The prediction of the payload address is not always successful. 
 Because the possible size of the NOP-slide is limited by the size of the JIT area, the success rate can't be increased "infinitely" by extending the NOP-slide.
 The NOP-slide plus payload can only be a maximum of 32KiB. As a result, the
@@ -187,7 +187,7 @@ JavaScript code. In the improved implementation the existing ROP chain generator
 in PHP and is already used in [browser exploits for earlier
 operating system versions](https://github.com/yellows8/wiiu_browserhax_fright). The
 wiiuhaxx_common ROP chain generator offers a dynamic generation, which
-can be used by different exploits. It only uses gadgets in in system
+can be used by different exploits. It only uses gadgets in system
 libraries, which are loaded at any time and at the same location in
 memory. Thus, the ROP chains created by wiiuhaxx\_common can be used system-wide, 
 independent of the running application.
@@ -225,7 +225,7 @@ function ropgen_writerop_toAddress($path, $dstaddr){
 }
 ```
 This payload length is limited by the maximum length of the ROP-Chain. The used payload is just 88 bytes and it's used to find the "real" payload in memory and copy it to a pre-defined address. 
-A existing gadget can be used to place arguments for the payload into the registers 24-31. After the payload is writting into memory, it will be copied to the JIT-Area, the registers will be set and the payload will be execution.
+A existing gadget can be used to place arguments for the payload into the registers 24-31. After the payload is writting into memory, it will be copied to the JIT-Area, the registers will be set and the payload will be executed.
 An excerpt of the ROP Chain can be found in the listing below.
 
 ```
@@ -240,7 +240,7 @@ $regs = array();
 $regs[24 - 24] = $ROP_OSFatal;//r24
 $regs[25 - 24] = $ROP_Exit;//r25
 $regs[26 - 24] = $payload_size;//r26 sizeToCopy
-$regs[27 - 24] = $payload_search_for - 0x04;// r27 SearchFor. substract 0x4 so we didn't find THIS accidentally.
+$regs[27 - 24] = $payload_search_for - 0x04;// r27 SearchFor. subtract 0x4 so we don't find THIS accidentally.
 $regs[28 - 24] = $payload_start_search;  //r28 start of search
 $regs[29 - 24] = $valid_payload_dst_address ; //r29 target address
 $regs[30 - 24] = 0x8;//r30 The payload can do this at entry to determine the start address of the code-loading ROP-chain: r1+= r30. r1+4 after that is where the jump-addr should be loaded from. The above r29 is a ptr to the input data used for payload loading.
@@ -252,10 +252,10 @@ ropchain_appendu32($codegen_addr); //Jump to the codegen area where the payload 
 ```
 
 The actual implementation can be found [here](https://github.com/wiiu-env/wiiuhaxx_common/blob/master/wiiuhaxx_searcher.s).
-Afterwards the "real" payload can be copied from the pre-defined address to the JIT-Area, where it can be executed from. See:
+Afterwards the "real" payload can be copied from the pre-defined address to the JIT-Area, from where it can be executed. See:
 
 ```
-// On success, we should now have our actual payload @valid_payload_dst_address. Lets copy it to codegen.
+// On success, we should now have our actual payload @valid_payload_dst_address. Let's copy it to codegen.
 ropgen_copycodebin_to_codegen($codegen_addr, $valid_payload_dst_address, $payload_size);
 // and run it!
 ropchain_appendu32($codegen_addr);
@@ -263,8 +263,8 @@ ropchain_appendu32($codegen_addr);
 
 The full ROP-Chain used in this implementation can be found [here](https://github.com/wiiu-env/wiiuhaxx_common/blob/master/wiiu_browserhax_common.php#L533).
 
-In addition, a new plattform independent [rop-gadget-finder](https://github.com/wiiu-env/RPXGadgetFinder) has been implemented in Java, which is used to the address of gadgets in system libraries either by a binany pattern or function name. 
-This new finder uses [YAML](https://en.wikipedia.org/wiki/YAML) files to specify which gadgets should be searched. An example config for gadgets of the coreinit.rpl can be found [here](https://github.com/wiiu-env/wiiuhaxx_common/blob/master/coreinit.yml). This 
+In addition, a new platform independent [rop-gadget-finder](https://github.com/wiiu-env/RPXGadgetFinder) has been implemented in Java, which is used to find the address of gadgets in system libraries either by a binary pattern or function name. 
+This new finder uses [YAML](https://en.wikipedia.org/wiki/YAML) files to specify which gadgets should be searched. An example config for gadgets of the coreinit.rpl can be found [here](https://github.com/wiiu-env/wiiuhaxx_common/blob/master/coreinit.yml). {::comment}Not sure if there is supposed to be more here{:/comment}
 
 # Browser exploit payload
 
@@ -273,7 +273,7 @@ the JIT area (32 KiB). Now a new payload should be implemented that has the goal
 another, larger payload from the SD card.
 
 To be able to implement this, a kernel exploit is required, which is
-explained in the next section. The kernel exploit is required to be able remain code execution while switching to an application which has access to the SD Card.
+explained in the next section. The kernel exploit is required to be able to remain code execution while switching to an application which has access to the SD Card.
 
 ## Kernel-Exploit
 
@@ -309,7 +309,7 @@ reverse-engineered.
 If it is possible to manipulate the variable *firstBlockIdx*, the meta
 information of a memory block allocated can be manipulated. The data
 structure of the meta information is called [TrackingBlockBase](https://github.com/decaf-emu/decaf-emu/blob/002ee0cebfc8f5d724d02cb92e65bb4249e90b0a/src/libdecaf/src/cafe/cafe_tinyheap.cpp#L13-L34) in
-decaf and is represented in the Listing below. The field data refers to the address of the
+decaf and is represented in the listing below. The field data refers to the address of the
 block to be allocated. If it points to memory that can be modified by
 applications, memory used in the kernel can be manipulated.
 
@@ -386,9 +386,9 @@ This makes it possible to manipulate objects used in the kernel using an
 application. The next time something on the kernel heap is allocated, the memory
 available to userspace is used, which can be controlled.
 In *Cafe OS*, it's possible to register as `OSDriver`. This `OSDriver` will be registered as hooks into system events.
-Whenever a Driver gets (de-)initialized or the main application acquires/released the foreground, a function of that Driver will be called.
+Whenever a Driver gets (de-)initialized or the main application acquires/releases the foreground, a function of that Driver will be called.
 However, the heap for userspace will be cleared whenever the application switches. 
-To allow an `OSDriver` to store persistent data, an mechanism exist, to store this data on the kernel heap.
+To allow an `OSDriver` to store persistent data, a mechanism exists to store this data on the kernel heap.
 This is the so-called `SaveArea` of a `OSDriver`. Before an application closes, the Driver can store data in the `SaveArea`, and load it back when a new application loads.
 
 The data of the registered `OSDriver` is allocated on the kernel heap. 
@@ -399,7 +399,7 @@ The position of the `SaveArea` can be freely selected by manipulating the
 `OSDriver` data. The data is written with kernel privileges, which makes
 it possible to set the `SaveArea` to a position within the kernel. Afterwards
 data can be written to the position via the function `CopyTo_SaveArea`.
-Listing below shows how any memory area can be modified
+The listing below shows how any memory area can be modified
 using a registered driver.
 
 ```
@@ -472,7 +472,7 @@ function, if necessary, executed.
 At this point, a change to any application would execute the payload.
 This is the case until the main hook is reverted.
 
-Hthe access to the JIT area, in which the code of the `KernelCopyData` 
+The access to the JIT area, in which the code of the `KernelCopyData` 
 syscall is located, is not longer given. This means that
 it can no longer be used. At the same time there is the problem that the
 free memory area from 0x011DD000 to 0x011E0000, in which the
@@ -483,7 +483,7 @@ this range.
 To work around this, the necessary permissions must be set and execution
 with kernel privileges in this area must be allowed. These are
 implemented by the MMU and managed for example by BAT
-registers (Block Address Translation Registers). They can be used to map physical memory block by block to
+(Block Address Translation) registers. They can be used to map physical memory block by block to
 virtual memory with corresponding permissions. There are two types of
 BAT registers: Data BAT registers (DBAT), which map the memory in terms
 of data, and Instruction BAT registers (IBAT), which map the memory in
@@ -573,6 +573,6 @@ happening lies with the loaded `payload.elf`.
 An example implementation of the `main_hook.elf` can be found [here](https://github.com/wiiu-env/payload_loader).
 
 # Backwards compatiblity
-The`payload.elf` is an abtract payload and can be used for anything. In order to have backwards compatiblity to the old existing homebrew environment, 
+The`payload.elf` is an abstract payload and can be used for anything. In order to have backwards compatiblity to the old existing homebrew environment, 
 I ported the homebrew launcher installer as a `payload.elf`, which can be found [here](https://github.com/wiiu-env/homebrew_launcher_installer).
 With this it's possible to have the stable browser exploit with abstract payload loading, but still using the old environment until the new one is finished.

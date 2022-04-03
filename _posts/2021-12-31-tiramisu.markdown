@@ -16,7 +16,7 @@ In my [last blogpost]({{ site.baseurl }}{% link _posts/2020-12-02-failst.markdow
 However: At the end of this blogpost I promised to release a user-friendly installer "as soon as possible" to be a free haxchi alternative. Now, over a year later, it's finally time to release it with some extra bits. 🎉
 
 ## Why did the release take over a year?
-Like I've already mentioned before, FailST is only useful with a payload that's taking advantage of it. Back in early 2019 I introduced the concept of abstracting payloads into a separate file (`payload.elf`) which every exploit could load in a standardized way to allow a constant experience between all entrypoints. This also allow's easy updating, because all you need to do, is replace a file on the sd card. So it only makes sense to use FailST to turn an application into a generic `payload.elf` loader too.
+Like I've already mentioned before, FailST is only useful with a payload that's taking advantage of it. Back in early 2019 I introduced the concept of abstracting payloads into a separate file (`payload.elf`) which every exploit could load in a standardized way to allow a constant experience between all entrypoints. This also allows easy updating, because all you need to do, is replace a file on the sd card. So it only makes sense to use FailST to turn an application into a generic `payload.elf` loader too.
 
 The "problem" with this is that you still need a `payload.elf` that does any of the cool things for you. Until today there were only a handful of `payload.elf`-implementations, for example the [homebrew launcher installer](https://github.com/wiiu-env/homebrew_launcher_installer) everyone is using for the browser exploit. But this is really only injecting the Homebrew Launcher into the Mii Maker, not doing anything else.
 
@@ -32,7 +32,7 @@ With this "only" a user-friendly (and safe) installer was missing and the public
 
 Together with Tiramisu an [EnvironmentLoader](https://github.com/wiiu-env/EnvironmentLoader) will be released, which is a payload that allows you to load into different environments. An environment is a collection of one-time executables (setup modules) that'll run in a specific order.
 
-Because an environment is just a collection of files , it's really easy to customize and extend it. All you need to do is add/remove files on your sd card.
+Because an environment is just a collection of files, it's really easy to customize and extend it. All you need to do is add/remove files on your sd card.
 
 ## Tiramisu Environment
 [Tiramisu](https://github.com/wiiu-env/Tiramisu) is an environment for the [EnvironmentLoader](https://github.com/wiiu-env/EnvironmentLoader) which has the following (base) features:

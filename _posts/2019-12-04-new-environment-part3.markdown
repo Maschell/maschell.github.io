@@ -14,7 +14,7 @@ to be revised or newly developed will be discussed in this post.
 Existing solutions have so far been designed and developed independently 
 of each other. On the one hand they have
 been developed one by one, on the other hand the solutions come
-from different, independed developers. No overall objective was followed. This leads
+from different, independent developers. No overall objective was followed. This leads
 to some problems, whereby the defined requirements are not fulfilled.
 These have already been explained in the [last blog entry]({{ site.baseurl }}{% link _posts/2019-11-27-new-environment-part2.markdown %}).
 
@@ -74,7 +74,7 @@ Information about fixed bugs [can be found](https://www.cvedetails.com/product/1
 on the Internet. The probability that an already
 existing browser exploit can be used is correspondingly high.
 
-In addition, modern browsers use a JIT compiler to efficiently execute
+In addition, modern browsers use a JIT (just in time) compiler to efficiently execute
 JavaScript. The executed JavaScript code is converted to native code at
 runtime and then executed. This requires a part in memory that is
 writable and executable at the same time. Typically, applications do not
@@ -82,9 +82,9 @@ have access to this area. In the case of the browser, however, this is
 necessary for efficient execution. In the following, this area in memory
 is referred to as the "JIT area".
 
-The memory available for the JIT(just in time) compiler in the case of the Wii U
+The memory available for the JIT compiler in the case of the Wii U
 [is 32 KiB big](https://wiiubrew.org/wiki/Cafe_OS#Virtual_Memory_Map). By exploiting the browser with a
-[ROP](https://en.wikipedia.org/wiki/Return-oriented_programming)(**R**eturn **O**riented **P**rogramming) chain, you can use this memory for your own code. 
+[ROP](https://en.wikipedia.org/wiki/Return-oriented_programming) (**R**eturn **O**riented **P**rogramming) chain, you can use this memory for your own code. 
 For a ROP chain a manipulation of the stack is required. The stack is modified in
 such a way that the return addresses execute parts of the existing code
 and thus achieve a desired behavior. Using the ROP chain it would be possible
@@ -99,7 +99,7 @@ It is therefore desirable to achieve a "better" code execution,
 with which it is possible to execute more code in a cleaner context. 
 With the exception of the JIT area, applications do not have areas in memory that can be
 written and executed at the same time. This is implemented via the
-MMU(**M**emory **M**apping **Unit**), which maps the physical memory to virtual memory with
+MMU (**M**emory **M**apping **Unit**), which maps the physical memory to virtual memory with
 corresponding permissions. This mapping as well as the permissions can
 only be changed with (PPC) kernel privileges. This requires another exploit to
 make the required modifications. In the following, this exploit is
@@ -121,7 +121,7 @@ With current solutions for example haxchi and the browser exploit needs to be up
 Loading a secondary payload would to be possible to load from the SD card or via the network. 
 When loading over the network, network access is required. In the case of a browser
 exploit, this is required anyway; however, other exploits, such as
-haxchi, work completely offline and independed. Therefore the payload should be stored
+haxchi, work completely offline and independently. Therefore the payload should be stored
 on the SD card. There it can be easily replaced by the user. This,
 however, creates a dependency on the SD card.
 
@@ -155,7 +155,7 @@ This payload will be called *payload.elf* in the future.
 <center><img src="/res/payload_elf_chain.png" width="450"></center>
 
 The figure
-aboce shows the procedure for loading and
+above shows the procedure for loading and
 executing *payload.elf*, which can be summarized as follows:
 
 1.  Obtaining ROP chain execution using an exploit.
@@ -170,7 +170,7 @@ executing *payload.elf*, which can be summarized as follows:
     load another payload from the SD card.
 
 On one hand the steps 1 and 2 would need to be created specifically for each application. 
-ON th eother hand the steps 3-6 would be completly independent of the specific exploit and could be re-used without any changes.
+On the other hand the steps 3-6 would be completely independent of the specific exploit and could be re-used without any changes.
 
 # Code execution is possible
 
@@ -201,7 +201,7 @@ path, the loading is handled by the operating system. In addition,
 it is no longer necessary to store the file in a separate memory area,
 which may be limited in size.
 
-So that homebrew applications can be executed controlled from the SD
+So that homebrew applications can be executed from the SD
 card, a homebrew launcher should be implemented analogous to the
 existing one. Applications located on the SD card should be able to be
 started via this launcher. The launcher will consist of a graphical user
@@ -215,7 +215,7 @@ located on the SD card. Which application is exchanged is not relevant.
 However, it is a good idea to select an application that is rarely used (for example the Health and Safety application).
 
 In order to load ".rpx" files, an IOSU exploit is required to manipulate
-the operating system to allows redirections. This IOSU exploit can be implemented in the form
+the operating system to allow redirections. This IOSU exploit can be implemented in the form
 of a *payload.elf*, which is loaded from the SD card from PPC userland exploits.
 
 The IOSU exploit can either be used to load a modified fw.img from the SD
@@ -224,7 +224,7 @@ desired changes take effect. The problem with using a full custom fw.img is
 that it may contain copyrighted code and is not that easy to share.
 
 
-In view of a possible future vulnerability in the bootrom, it would also be thinkable to create a own fw.img which has not this problem.
+In view of a possible future vulnerability in the bootrom, it would also be thinkable to create a own fw.img which does not have this problem.
 An exploit of the bootroom would allow the execution of a fw.img directly at the start of the console.
 If it is possible to boot directly into a own fw.img, this can serve as an early code execution and then modify and execute the original fw.img "on-the-fly".
 
@@ -242,7 +242,7 @@ fixed redirection ensures that the start of a previously defined
 application loads a ".rpx" file, in this case a Homebrew Launcher, from
 the SD card. This Homebrew Launcher should enable the user to load any
 homebrew application from the SD card. This requires a mechanism to
-control the ".rpx" redirection. The IPC(**I**nter-**p**rocess **c**ommunication) interface for communication
+control the ".rpx" redirection. The IPC (**I**nter-**p**rocess **c**ommunication) interface for communication
 between the Cafe OS and IOSU will be extended by a new IOCTL. The Homebrew
 Launcher also needs access to the SD card in order to be able to show
 the user a corresponding selection of possible homebrew applications. A
@@ -266,7 +266,7 @@ generic code, from the SD card.
 The following figure summarizes the current state starting from a
 *payload.elf*. Homebrew applications can be loaded in the form of ".rpx"
 files after a restart via a homebrew launcher. For this purpose, a
-*payload.elf *is loaded from the SD card, which performs an IOSU exploit
+*payload.elf* is loaded from the SD card, which performs an IOSU exploit
 and any necessary IOSU modifications. After a restart these
 modifications take effect and the Homebrew Launcher can be started by
 starting a previously defined application. The Homebrew Launcher can be
@@ -318,7 +318,7 @@ further set up and configured.
 
 Each time an application is started, *hook\_payload.elf* is executed,
 which provides ongoing code execution. This is also the case if homebrew
-applications are started via the homebrew launcher.
+applications are started via the Homebrew Launcher.
 
 Among other things, it should be possible to manipulate the system
 libraries of the Cafe OS. To do this, the Wii U plugin system can be
@@ -341,7 +341,7 @@ functions of system libraries by plugins is possible. The functions can
 be manipulated by directly replacing the first instruction of a function in memory in such a
 way that own code is executed instead. If the overwritten instruction is
 remembered, the original function can also be executed. System events
-can be propagated to the plug-ins by specifically hook into
+can be propagated to the plug-ins by specifically hooking into
 certain functions of the system libraries. By creating threads, code can be executed in the
 background for use. Due to the direct code execution after starting the
 homebrew environment, it is also possible to execute plugins straight
@@ -407,7 +407,7 @@ effectively started in the homebrew environment.
 
 Unfortunately, the browser is not suitable for this because the web page
 containing the exploit has to be called manually. In addition, this
-would mean a dependency on a network connection, an independent use
+would mean a dependency on a network connection, so an independent use
 would not be possible.
 
 Complete access to the file system increases the attack vector for

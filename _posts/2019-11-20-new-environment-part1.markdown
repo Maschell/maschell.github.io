@@ -87,7 +87,7 @@ does not allow control over the entire
 system. If an error in an application is exploited and the ability to
 execute code is obtained, it is still not possible to read sensitive
 information from the *IOSU*, such as cryptographic keys used to decrypt
-critical parts of the system. A separate MPU[^7] ensures that the memory of the *IOSU* cannot be read despite
+critical parts of the system. A separate MPU ensures that the memory of the *IOSU* cannot be read despite
 control over the PowerPC.
 
 Applications are executed either from the internal memory or from an
@@ -227,4 +227,4 @@ corresponding keys via the *Wii U* can be found for example [here](https://www.y
 
 # Next blog entry
 The next entry will discuss the requirements that will be used for creating the environment. 
-It will also discuss which parts of the existing solutions are bad and need to be improved, and which parts can reused.
+It will also discuss which parts of the existing solutions are bad and need to be improved, and which parts can be reused.
