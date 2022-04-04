@@ -264,7 +264,7 @@ ropchain_appendu32($codegen_addr);
 The full ROP-Chain used in this implementation can be found [here](https://github.com/wiiu-env/wiiuhaxx_common/blob/master/wiiu_browserhax_common.php#L533).
 
 In addition, a new platform independent [rop-gadget-finder](https://github.com/wiiu-env/RPXGadgetFinder) has been implemented in Java, which is used to find the address of gadgets in system libraries either by a binary pattern or function name. 
-This new finder uses [YAML](https://en.wikipedia.org/wiki/YAML) files to specify which gadgets should be searched. An example config for gadgets of the coreinit.rpl can be found [here](https://github.com/wiiu-env/wiiuhaxx_common/blob/master/coreinit.yml). {::comment}Not sure if there is supposed to be more here{:/comment}
+This new finder uses [YAML](https://en.wikipedia.org/wiki/YAML) files to specify which gadgets should be searched. An example config for gadgets of the coreinit.rpl can be found [here](https://github.com/wiiu-env/wiiuhaxx_common/blob/master/coreinit.yml).
 
 # Browser exploit payload
 
