@@ -55,7 +55,7 @@ At the time of writing this, it will **only** be possible to load homebrew direc
 
 Back in April 2021 I made a private beta of Aroma. A beta which was leaked and a lot of the beta testers never gave any form of feedback. This is why this beta will be public now. It doesn't really make a difference anyway :)
 
-The public beta Aroma can be downloaded [here](https://aroma.foryour.cafe/). When this blogpost gets released, not every single plugin I mentioned will be avialable, but I'll try to add them as soon as I can.
+The public beta Aroma can be downloaded [here](https://aroma.foryour.cafe/). When this blogpost gets released, not every single plugin I mentioned will be available, but I'll try to add them as soon as I can.
 
 Tiramisu and Aroma share the same EnvironmentLoader. If you're already running Tiramisu, all you need to do is download new files, extract them to your SD Card and boot into the Aroma Environment. If you don't have a way to run the EnvironmentLoader yet, I would recommend following the [Tiramisu guides](https://wiiu.hacks.guide/#/) and install Aroma on top.
 
