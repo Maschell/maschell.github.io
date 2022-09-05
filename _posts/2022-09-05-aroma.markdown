@@ -1,0 +1,74 @@
+---
+layout: post
+title:  "Aroma"
+date:   2022-09-05 22:00:00 +0100
+categories: homebrew
+---
+
+In the past few years I have worked on improving the homebrew experience for users and developers on the Wii U. What started as "Would be cool to run 2 homebrews at the same time, let's try to make a plugin system", turned into "I want to understand existing exploits", and then "coldbooting into plugins would be cool" turned into discovering a new major exploit ([FailST]({{ site.baseurl }}{% link _posts/2020-12-02-failst.markdown %})) and basically rewriting every bit of homebrew I was interested in. Over time, the scope kept growing and growing and it was getting hard to actually finish it. In the mean time I released some parts of it together with [Tiramisu]({{ site.baseurl }}{% link _posts/2021-12-31-tiramisu.markdown %}), but at the time of writing this blog post there are still **25** private repositories related to Aroma. 
+
+I wanted to have the perfect release, but this would take a lot of time. A lot of time to explain all the cool features in detail, a lot of time to talk about the design choices I've made, a lot of time to document everything and a lot of time to make it the best possible experience for users and homebrew developers. But while working on this perfection, nobody else can enjoy the already existing features of Aroma, which is really sad. It happens again and again that a user or developer asks for feature X and in many cases the answer is "It would be possible, but only with Aroma". 
+
+Long story short, there will be a public beta of Aroma. But before I get into details, let's discuss what Aroma exactly is.
+
+
+## What's Aroma?
+
+The good news is: The migration to Aroma will be really simple, especially if you're already coldbooting into the [EnvironmentLoader](https://github.com/wiiu-env/EnvironmentLoader) (e.g. booting into [Tiramisu](https://github.com/wiiu-env/Tiramisu)). Aroma is just another Environment that will be installed by copy pasting a new directory on to the SD card. The installation of the EnvironmentLoader is exactly the same as for Tiramisu.
+
+Given these similarities between Aroma and Tiramisu, they share the basic feature set. Both are built on top of the same Mocha version, updates are blocked, Bloopair is supported, and the AutobootModule including the quick start menu are working too.
+
+### Introducing Aroma Modules
+Tiramisu provides a very basic environment which only includes [Mocha](https://github.com/wiiu-env/MochaPayload), the autoboot module, and a module for injecting the Homebrew Launcher into the Mii Maker. Aroma, on the other hand ships with it's own module-loader, which is more powerful than what the "setup modules" in the EnvironmentLoader offers. 
+
+Aroma Modules can best be compared to `.rpl` files (in non Cafe OS terms, a `.dll`). They stay loaded in memory, as opposed to "setup modules". Each Aroma Module can export functions which may be utilised by other modules or plugins. For example, there is a KernelModule to read/write data with PPC kernel permissions and a FunctionPatcherModule which allows you to easily patch Cafe OS functions. 
+
+### Enhance the console with plugins.
+One of the most important Aroma Modules is the backend of the Wii U Plugin System. This is an evolution of the original Plugin System which I started to work on in early 2018. The Aroma port is way more stable (e.g. plugins now have their own heap instead of stealing memory from games) and plugins can be (re)-loaded at runtime, speeding up development. 
+
+Plugins are a very flexible way to improve the features of the console. For example, I have already worked on  plugins which allow you do to the following things:
+- Run homebrew directly from the Wii U Menu.
+- Always run a FTP server in the background to access the filesystem.
+- Pair gamepads and boot games from other regions.
+- Launch homebrew/plugins at any time via the network (wiiload).
+- Debug games and your homebrew with the help of a port of Kinnay's Wii-U-Debugger.
+- Mod your games by redirecting file accesses to your SD card (SDCafiine).
+- Take screenshots everywhere and save them to the SD card.
+- Enable logging via a USB Serial adapter on retail consoles with full support of the cos shell.
+
+All of these plugins will release over the next days and weeks. At the moment there is no documentation for the new version of the Plugin System. If you need any help with the devlopment of your plugin, please join the [Aroma Discord](https://discord.com/invite/bZ2rep2).
+
+### Loading homebrew from the Wii U Menu / WUHB (Wii U Homebrew Bundle)
+
+This feature has been teased and discussed quite a lot already. With Aroma the way of loading homebrew will change. Previously it was loaded by a dedicated homebrew launcher, which loaded the executable in the memory and then ran it (in the case of a `.rpx` it's a bit more complicated though). Now with the latest version of Mocha it's really easy and clean to run homebrew with just a few lines of code. Instead of having to rely on the homebrew launcher, we can now explore options.
+
+In a time where a forwarder channel gets created for every single homebrew, it's an obvious choice to support this form of loading homebrew. Aroma will provide a plugin, which scans the `.rpx` and `.wuhb` files on your SD card and display them on your Wii U Menu. Thus, you would be able to launch homebrew from the home menu, **without** actually installing anything!
+
+This is where WUHB, the **W**ii **U** **H**omebrew **B**undle format, comes into play. It allows homebrew applications together with additional data to be stored into a single file. This simplifies distribution and installation. Besides the executable (`.rpx`), a WUHB file embeds meta information (splash screen, icon, name of application/author) and can hold up to 4GiB of additional files. These additional files can be accessed via `/vol/content` like a "real" channel. The homebrew toolchain [wut](https://github.com/devkitPro/wut) has built-in support for creating `.wuhb` files, please take a look at the wut examples.
+
+At the time of writing this, it will **only** be possible to load homebrew directly from the Wii U Menu. Creating a homebrew launcher alternative would be possible, but I decided to not spent any time on that. Parsing the meta data from a `.wuhb` and launching a `.rpx`/`.wuhb` is really straight forward, if anybody wants to create a "modern" homebrew launcher and needs assistance, let me know on the [Aroma Discord](https://discord.com/invite/bZ2rep2).
+
+**Note 1:**`.elf` homebrew are not and will never be supported by Aroma due to technical limitations. To continue using these homebrew apps, you need to launch into [Tiramisu](https://github.com/wiiu-env/Tiramisu).
+**Note 2:** Not all `.rpx` files will be compatible out of the box. Make sure the application doesn't launch it's own exploits and implements the ProcUI loop properly. If you have trouble with this please join the [Aroma Discord](https://discord.com/invite/bZ2rep2).
+
+## Where can I get Aroma?!?!
+
+Back in April 2021 I made a private beta of Aroma. A beta which was leaked and a lot of the beta testers never gave any form of feedback. This is why this beta will be public now. It doesn't really make a difference anyway :)
+
+The public beta Aroma can be downloaded [here](https://aroma.foryour.cafe/). When this blogpost gets released, not every single plugin I mentioned will be avialable, but I'll try to add them as soon as I can.
+
+Tiramisu and Aroma share the same EnvironmentLoader. If you're already running Tiramisu, all you need to do is download new files, extract them to your SD Card and boot into the Aroma Environment. If you don't have a way to run the EnvironmentLoader yet, I would recommend following the [Tiramisu guides](https://wiiu.hacks.guide/#/) and install Aroma on top.
+
+## Thanks 
+Special thanks to dimok798, marcan, smealum, plutoo, yellows8, naehrwert, derrek, Marionumber1, TheKit, Hykem, Relys, Mathew_Wi, FIX94, hexkyz, exjam and every other person who discovered the exploits, documented the hardware/software and implemented the first homebrew eco system. Without the work of these people, I would never have been able to implement any part of Aroma. 
+
+But I've also met a lot of other talented people over the years. Aroma would not be Aroma if these people didn't exist: Thanks (in no particular order) GaryOderNichts, quarky, rw-r-r-0644, vgmoose, exjam, Crementif, fincs, Wintermute, pwsincd, Koopa, Kinnay, jam1garner, Lazr and many more.
+
+Thanks for helping me implementing Aroma, thanks for your contributions and for not blocking me when I lost my mind while fixing a memory corruption for 14 months.
+
+## Links
+
+- [Download Aroma](https://aroma.foryour.cafe/)
+- [Wii U Hacking Guide](https://wiiu.hacks.guide/#/)
+- [EnvironmentLoader](https://github.com/wiiu-env/EnvironmentLoader)
+- [Aroma Environment](https://github.com/wiiu-env/Aroma)
