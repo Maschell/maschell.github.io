@@ -5,7 +5,7 @@ date:   2022-09-05 22:00:00 +0100
 categories: homebrew
 ---
 
-In the past few years I have worked on improving the homebrew experience for users and developers on the Wii U. What started as "Would be cool to run 2 homebrews at the same time, let's try to make a plugin system", turned into "I want to understand existing exploits", and then "coldbooting into plugins would be cool" turned into discovering a new major exploit ([FailST]({{ site.baseurl }}{% link _posts/2020-12-02-failst.markdown %})) and basically rewriting every bit of homebrew I was interested in. Over time, the scope kept growing and growing and it was getting hard to actually finish it. In the mean time I released some parts of it together with [Tiramisu]({{ site.baseurl }}{% link _posts/2021-12-31-tiramisu.markdown %}), but at the time of writing this blog post there are still **25** private repositories related to Aroma. 
+In the past few years I have worked on improving the homebrew experience for users and developers on the Wii U. What started as "Would be cool to run 2 homebrews at the same time, let's try to make a plugin system", turned into "I want to understand existing exploits", and then "coldbooting into plugins would be cool" turned into discovering a new major exploit ([FailST]({{ site.baseurl }}{% link _posts/2020-12-02-failst.markdown %})) and basically rewriting every bit of homebrew I was interested in. Over time, the scope kept growing and growing and it was getting hard to actually finish it. In the meantime I released some parts of it together with [Tiramisu]({{ site.baseurl }}{% link _posts/2021-12-31-tiramisu.markdown %}), but at the time of writing this blog post there are still **25** private repositories related to Aroma. 
 
 I wanted to have the perfect release, but this would take a lot of time. A lot of time to explain all the cool features in detail, a lot of time to talk about the design choices I've made, a lot of time to document everything and a lot of time to make it the best possible experience for users and homebrew developers. But while working on this perfection, nobody else can enjoy the already existing features of Aroma, which is really sad. It happens again and again that a user or developer asks for feature X and in many cases the answer is "It would be possible, but only with Aroma". 
 
@@ -19,7 +19,7 @@ The good news is: The migration to Aroma will be really simple, especially if yo
 Given these similarities between Aroma and Tiramisu, they share the basic feature set. Both are built on top of the same Mocha version, updates are blocked, Bloopair is supported, and the AutobootModule including the quick start menu are working too.
 
 ### Introducing Aroma Modules
-Tiramisu provides a very basic environment which only includes [Mocha](https://github.com/wiiu-env/MochaPayload), the autoboot module, and a module for injecting the Homebrew Launcher into the Mii Maker. Aroma, on the other hand ships with it's own module-loader, which is more powerful than what the "setup modules" in the EnvironmentLoader offers. 
+Tiramisu provides a very basic environment which only includes [Mocha](https://github.com/wiiu-env/MochaPayload), the autoboot module, and a module for injecting the Homebrew Launcher into the Mii Maker. Aroma on the other hand ships with it’s own module-loader, which is more powerful than what the “setup modules” in the EnvironmentLoader offers. 
 
 Aroma Modules can best be compared to `.rpl` files (in non Cafe OS terms, a `.dll`). They stay loaded in memory, as opposed to "setup modules". Each Aroma Module can export functions which may be utilised by other modules or plugins. For example, there is a KernelModule to read/write data with PPC kernel permissions and a FunctionPatcherModule which allows you to easily patch Cafe OS functions. 
 
@@ -53,7 +53,7 @@ At the time of writing this, it will **only** be possible to load homebrew direc
 
 ## Where can I get Aroma?!?!
 
-Back in April 2021 I made a private beta of Aroma. A beta which was leaked and a lot of the beta testers never gave any form of feedback. This is why this beta will be public now. It doesn't really make a difference anyway :)
+Back in April 2021 I made a private beta of Aroma. A beta which was leaked and a lot of the beta testers never gave any form of feedback. This is why this new beta will be public now. It doesn't really make a difference anyway :)
 
 The public beta Aroma can be downloaded [here](https://aroma.foryour.cafe/). When this blogpost gets released, not every single plugin I mentioned will be available, but I'll try to add them as soon as I can.
 
