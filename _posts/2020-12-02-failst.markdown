@@ -17,7 +17,7 @@ As the name may suggest, the exploit uses a vulnerability in the handling of the
 
 A Wii U game disc is divided into multiple partitions. At the bare minimum, they have one `SI` (SecurityInformation?) and one `GM` (Game?) partition. The `SI` partition holds the TitleMetaData (TMD) and Ticket for each of the `GM` partition(s). Some games have some additional partitions which contain, for example, updates or DLC.
 
-In all discs I have seen so far, each `GM` partition conists of exactly one `volume`, which starts with a `VolumeHeader`. This header holds information like the address of the FST, a list of `h3-hashes` or the sector size. 
+In all discs I have seen so far, each `GM` partition consists of exactly one `volume`, which starts with a `VolumeHeader`. This header holds information like the address of the FST, a list of `h3-hashes` or the sector size. 
 
 Each volume is divided into multiple sections, the first of which is always the FST. The FST holds information about the actual game files like names, sizes and where to find them on the disc. For each section the FST includes a small entry to describe the section. Beside the offset, size, owner ID and group ID it also holds one previously unknown field which turns out to be the hash mode. Sections can have two possible hash modes. 
 
