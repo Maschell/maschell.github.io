@@ -44,14 +44,14 @@ Because an environment is just a collection of files, it's really easy to custom
 It's possible to extend this features set by adding new setup modules. For example [Bloopair](https://github.com/GaryOderNichts/Bloopair) has been ported to be a setup module, which allows coldbooting into Bloopair 🚀!
 
 ## PayloadLoader Installer Environment
-The other environment that will be released together with Tiramisu is an environemnt to launch the PayloadLoader Installer. 
+The other environment that will be released together with Tiramisu is an environment to launch the PayloadLoader Installer. 
 
 The PayloadLoader Installer is a user-friendly and safe installer that injects [PayloadFromRPX](https://github.com/wiiu-env/PayloadFromRPX) into the Health and Safety Application. It also has an option to activate coldbooting into it. 
 
 This allows us to coldboot into the [EnvironmentLoader](https://github.com/wiiu-env/EnvironmentLoader) and thus into Tiramisu (or any other environment)
 
 ## The future of Aroma
-I'll continue to work on Aroma and have already ported it to be compatible with the [EnvironmentLoader](EnvironmentLoader). This means migrating from Tiramisu to Aroma will be done by putting new files on the sd card and and change the default environment on the EnvironmentLoader. 
+I'll continue to work on Aroma and have already ported it to be compatible with the [EnvironmentLoader](EnvironmentLoader). This means migrating from Tiramisu to Aroma will be done by putting new files on the sd card and change the default environment in the EnvironmentLoader. 
 
 I really hope to get Aroma done quickly because it has some really cool features that are not possible with legacy homebrew. I'll keep you updated!
 
