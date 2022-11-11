@@ -19,11 +19,11 @@ The good news is: The migration to Aroma will be really simple, especially if yo
 Given these similarities between Aroma and Tiramisu, they share the basic feature set. Both are built on top of the same Mocha version, updates are blocked, Bloopair is supported, and the AutobootModule including the quick start menu are working too.
 
 ### Introducing Aroma Modules
-Tiramisu provides a very basic environment which only includes [Mocha](https://github.com/wiiu-env/MochaPayload), the autoboot module, and a module for injecting the Homebrew Launcher into the Mii Maker. Aroma on the other hand ships with it’s own module-loader, which is more powerful than what the “setup modules” in the EnvironmentLoader offers. 
+Tiramisu provides a very basic environment which only includes [Mocha](https://github.com/wiiu-env/MochaPayload), the autoboot module, and a module for injecting the Homebrew Launcher into the Mii Maker. Aroma on the other hand ships with its own module-loader, which is more powerful than what the “setup modules” in the EnvironmentLoader offers. 
 
 Aroma Modules can best be compared to `.rpl` files (in non Cafe OS terms, a `.dll`). They stay loaded in memory, as opposed to "setup modules". Each Aroma Module can export functions which may be utilised by other modules or plugins. For example, there is a KernelModule to read/write data with PPC kernel permissions and a FunctionPatcherModule which allows you to easily patch Cafe OS functions. 
 
-### Enhance the console with plugins.
+### Enhance the console with plugins
 One of the most important Aroma Modules is the backend of the Wii U Plugin System. This is an evolution of the original Plugin System which I started to work on in early 2018. The Aroma port is way more stable (e.g. plugins now have their own heap instead of stealing memory from games) and plugins can be (re)-loaded at runtime, speeding up development. 
 
 Plugins are a very flexible way to improve the features of the console. For example, I have already worked on  plugins which allow you do to the following things:
@@ -36,7 +36,7 @@ Plugins are a very flexible way to improve the features of the console. For exam
 - Take screenshots everywhere and save them to the SD card.
 - Enable logging via a USB Serial adapter on retail consoles with full support of the cos shell.
 
-All of these plugins will release over the next days and weeks. At the moment there is no documentation for the new version of the Plugin System. If you need any help with the devlopment of your plugin, please join the [Aroma Discord](https://discord.com/invite/bZ2rep2).
+All of these plugins will release over the next days and weeks. At the moment there is no documentation for the new version of the Plugin System. If you need any help with the development of your plugin, please join the [Aroma Discord](https://discord.com/invite/bZ2rep2).
 
 ### Loading homebrew from the Wii U Menu / WUHB (Wii U Homebrew Bundle)
 
@@ -44,12 +44,12 @@ This feature has been teased and discussed quite a lot already. With Aroma the w
 
 In a time where a forwarder channel gets created for every single homebrew, it's an obvious choice to support this form of loading homebrew. Aroma will provide a plugin, which scans the `.rpx` and `.wuhb` files on your SD card and display them on your Wii U Menu. Thus, you would be able to launch homebrew from the home menu, **without** actually installing anything!
 
-This is where WUHB, the **W**ii **U** **H**omebrew **B**undle format, comes into play. It allows homebrew applications together with additional data to be stored into a single file. This simplifies distribution and installation. Besides the executable (`.rpx`), a WUHB file embeds meta information (splash screen, icon, name of application/author) and can hold up to 4GiB of additional files. These additional files can be accessed via `/vol/content` like a "real" channel. The homebrew toolchain [wut](https://github.com/devkitPro/wut) has built-in support for creating `.wuhb` files, please take a look at the wut examples.
+This is where WUHB, the **W**ii **U** **H**omebrew **B**undle format, comes into play. It allows homebrew applications together with additional data to be stored in a single file. This simplifies distribution and installation. Besides the executable (`.rpx`), a WUHB file embeds meta information (splash screen, icon, name of application/author) and can hold up to 4GiB of additional files. These additional files can be accessed via `/vol/content` like a "real" channel. The homebrew toolchain [wut](https://github.com/devkitPro/wut) has built-in support for creating `.wuhb` files, please take a look at the wut examples.
 
-At the time of writing this, it will **only** be possible to load homebrew directly from the Wii U Menu. Creating a homebrew launcher alternative would be possible, but I decided to not spent any time on that. Parsing the meta data from a `.wuhb` and launching a `.rpx`/`.wuhb` is really straight forward, if anybody wants to create a "modern" homebrew launcher and needs assistance, let me know on the [Aroma Discord](https://discord.com/invite/bZ2rep2).
+At the time of writing this, it will **only** be possible to load homebrew directly from the Wii U Menu. Creating a homebrew launcher alternative would be possible, but I decided to not spend any time on that. Parsing the metadata from a `.wuhb` and launching a `.rpx`/`.wuhb` is really straight forward, so if anybody wants to create a "modern" homebrew launcher and needs assistance, let me know on the [Aroma Discord](https://discord.com/invite/bZ2rep2).
 
 **Note 1:**`.elf` homebrew are not and will never be supported by Aroma due to technical limitations. To continue using these homebrew apps, you need to launch into [Tiramisu](https://github.com/wiiu-env/Tiramisu).
-**Note 2:** Not all `.rpx` files will be compatible out of the box. Make sure the application doesn't launch it's own exploits and implements the ProcUI loop properly. If you have trouble with this please join the [Aroma Discord](https://discord.com/invite/bZ2rep2).
+**Note 2:** Not all `.rpx` files will be compatible out of the box. Make sure the application doesn't launch its own exploits and implements the ProcUI loop properly. If you have trouble with this please join the [Aroma Discord](https://discord.com/invite/bZ2rep2).
 
 ## Where can I get Aroma?!?!
 
@@ -60,11 +60,11 @@ The public beta Aroma can be downloaded [here](https://aroma.foryour.cafe/). Whe
 Tiramisu and Aroma share the same EnvironmentLoader. If you're already running Tiramisu, all you need to do is download new files, extract them to your SD Card and boot into the Aroma Environment. If you don't have a way to run the EnvironmentLoader yet, I would recommend following the [Tiramisu guides](https://wiiu.hacks.guide/#/) and install Aroma on top.
 
 ## Thanks 
-Special thanks to dimok798, marcan, smealum, plutoo, yellows8, naehrwert, derrek, Marionumber1, TheKit, Hykem, Relys, Mathew_Wi, FIX94, hexkyz, exjam and every other person who discovered the exploits, documented the hardware/software and implemented the first homebrew eco system. Without the work of these people, I would never have been able to implement any part of Aroma. 
+Special thanks to dimok798, marcan, smealum, plutoo, yellows8, naehrwert, derrek, Marionumber1, TheKit, Hykem, Relys, Mathew_Wi, FIX94, hexkyz, exjam and every other person who discovered the exploits, documented the hardware/software and implemented the first homebrew ecosystem. Without the work of these people, I would never have been able to implement any part of Aroma. 
 
 But I've also met a lot of other talented people over the years. Aroma would not be Aroma if these people didn't exist: Thanks (in no particular order) GaryOderNichts, quarky, rw-r-r-0644, vgmoose, exjam, Crementif, fincs, Wintermute, pwsincd, Koopa, Kinnay, jam1garner, Lazr and many more.
 
-Thanks for helping me implementing Aroma, thanks for your contributions and for not blocking me when I lost my mind while fixing a memory corruption for 14 months.
+Thanks for helping me implement Aroma, thanks for your contributions and for not blocking me when I lost my mind while fixing a memory corruption for 14 months.
 
 ## Links
 
