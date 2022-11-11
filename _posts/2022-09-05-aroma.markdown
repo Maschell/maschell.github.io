@@ -19,7 +19,7 @@ The good news is: The migration to Aroma will be really simple, especially if yo
 Given these similarities between Aroma and Tiramisu, they share the basic feature set. Both are built on top of the same Mocha version, updates are blocked, Bloopair is supported, and the AutobootModule including the quick start menu are working too.
 
 ### Introducing Aroma Modules
-Tiramisu provides a very basic environment which only includes [Mocha](https://github.com/wiiu-env/MochaPayload), the autoboot module, and a module for injecting the Homebrew Launcher into the Mii Maker. Aroma on the other hand ships with its own module-loader, which is more powerful than what the “setup modules” in the EnvironmentLoader offers. 
+Tiramisu provides a very basic environment which only includes [Mocha](https://github.com/wiiu-env/MochaPayload), the autoboot module, and a module for injecting the Homebrew Launcher into the Mii Maker. Aroma on the other hand ships with its own module loader, which is more powerful than what the “setup modules” in the EnvironmentLoader offers. 
 
 Aroma Modules can best be compared to `.rpl` files (in non Cafe OS terms, a `.dll`). They stay loaded in memory, as opposed to "setup modules". Each Aroma Module can export functions which may be utilised by other modules or plugins. For example, there is a KernelModule to read/write data with PPC kernel permissions and a FunctionPatcherModule which allows you to easily patch Cafe OS functions. 
 
