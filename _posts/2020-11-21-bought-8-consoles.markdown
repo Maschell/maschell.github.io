@@ -15,7 +15,7 @@ Sometimes, when I get bored, I scroll through ebay looking for newly listed "buy
  than I would ever need for 30€. It even included a multitap, so a few days later
  I played Micro Machines for the first time with 4 players on a Playstation!
  
- **Update 2024-04-09: For quite some time there a now tools that can be used to [bypass parental controls via raspberry pi pico](https://github.com/GaryOderNichts/recovery_menu) or fix consoles with the 160-0103 system error [via software](https://gbatemp.net/threads/fixing-system-memory-error-160-0103-failing-emmc-without-soldering-using-rednand-with-isfshax.642268/) or [via hardware](https://gbatemp.net/threads/using-nand-aid-to-repair-a-broken-emmc-fix-160-0103-system-memory-error.636361/).**
+ **Update 2024-04-09: For quite some time there a now tools that can be used to [bypass parental controls via raspberry pi pico](https://github.com/GaryOderNichts/recovery_menu) or [fix consoles with the 160-0103 system errors](https://gbatemp.net/threads/ultimate-wii-u-troubleshooting-guide-system-memory-error-160-0103-stuck-wii-u-screen-stuck-factory-reset-black-screen-after-stuck-update.642339/).**
 
 ## Why even bother to look for broken consoles?
 Since then, I also tend to look specifically for console-related items that have the condition
@@ -99,7 +99,7 @@ This console looked very promising at first. I turned it on and it didn't lock u
 the Wii U menu, I got an error code of `160-0103`. I tried a few more times, but the console kept freezing or giving 
 me an error code. Most likely the emmc has died. RIP console 3 =( 
 
-**Update 2024-04-09: There are now ways to recover the consoles with these error [via software](https://gbatemp.net/threads/fixing-system-memory-error-160-0103-failing-emmc-without-soldering-using-rednand-with-isfshax.642268/) or [via hardware](https://gbatemp.net/threads/using-nand-aid-to-repair-a-broken-emmc-fix-160-0103-system-memory-error.636361/)** 
+**Update 2024-04-09: There are now [ways to recover](https://gbatemp.net/threads/ultimate-wii-u-troubleshooting-guide-system-memory-error-160-0103-stuck-wii-u-screen-stuck-factory-reset-black-screen-after-stuck-update.642339/) the consoles with these error.** 
 
 #### Console 4
 
